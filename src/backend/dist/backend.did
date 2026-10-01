@@ -1,0 +1,143 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = 
+ record {
+   displayName: text;
+   email: opt text;
+   photoUrl: opt text;
+ };
+type Timestamp = nat;
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type MessageRole = 
+ variant {
+   assistant;
+   user;
+ };
+type MessageId = nat;
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type ConversationSummary = 
+ record {
+   createdAt: Timestamp;
+   id: ConversationId;
+   messageCount: nat;
+   title: text;
+   updatedAt: Timestamp;
+ };
+type ConversationId = nat;
+type Conversation = 
+ record {
+   createdAt: Timestamp;
+   id: ConversationId;
+   messages: vec ChatMessage;
+   title: text;
+   updatedAt: Timestamp;
+ };
+type ChatTurn = 
+ record {
+   content: text;
+   role: MessageRole;
+ };
+type ChatStreamResponse = 
+ record {
+   chunks: vec text;
+   conversationId: ConversationId;
+   message: ChatMessage;
+ };
+type ChatResponse = 
+ record {
+   conversationId: ConversationId;
+   message: ChatMessage;
+   reply: text;
+ };
+type ChatRequest = 
+ record {
+   conversationId: opt ConversationId;
+   messages: vec ChatTurn;
+   systemPrompt: opt text;
+ };
+type ChatMessage = 
+ record {
+   content: text;
+   createdAt: Timestamp;
+   id: MessageId;
+   role: MessageRole;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  /// Delete one of the caller's conversations.
+  deleteConversation: (id: ConversationId) -> (bool);
+  execute: (qJson: text) -> (Result) query;
+  /// Static Markdown documentation of the public backend API.
+  getApiDoc: () -> (text) query;
+  /// Read the caller's own profile.
+  getCallerUserProfile: () -> (opt UserProfile) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Load one of the caller's conversations.
+  getConversation: (id: ConversationId) -> (opt Conversation) query;
+  /// Read a profile by principal. A caller may only read its own profile;
+  /// admins may read any profile. Anonymous callers receive null.
+  getUserProfile: (user: principal) -> (opt UserProfile) query;
+  isCallerAdmin: () -> (bool) query;
+  /// List the caller's conversations, newest first.
+  listConversations: () -> (vec ConversationSummary) query;
+  /// Create or replace the caller's own profile.
+  saveCallerUserProfile: (profile: UserProfile) -> ();
+  schema: () -> (text) query;
+  /// Run a chat completion and persist the exchange for signed-in users.
+  sendChatMessage: (request: ChatRequest) -> (ChatResponse);
+  /// Run a chat completion and return the reply split into ordered chunks so
+  /// the frontend can render it incrementally. Persists the exchange for
+  /// signed-in users exactly like `sendChatMessage`; guests stay unpersisted.
+  sendChatMessageStream: (request: ChatRequest) -> (ChatStreamResponse);
+}

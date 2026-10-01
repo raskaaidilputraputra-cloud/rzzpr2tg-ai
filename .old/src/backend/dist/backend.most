@@ -1,0 +1,89 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type ChatMessage__559859432 =
+  {
+    content : Text;
+    createdAt : Timestamp__753029554;
+    id : MessageId__810287564;
+    role : MessageRole__512297421
+  };
+type ChatMessage__907981869 =
+  {content : Text; createdAt : Nat; id : Nat; role : {#assistant; #user}};
+type ConversationId__147913217 = ConversationId__966455625;
+type ConversationId__966455625 = Nat;
+type ConversationStore__364143833 =
+  Map__230067015<ConversationId__147913217, StoredConversation__451689015>;
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type MessageId__291319400 = Nat;
+type MessageId__810287564 = MessageId__291319400;
+type MessageRole__49436217 = {#assistant; #user};
+type MessageRole__512297421 = MessageRole__49436217;
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__769816496 =
+  {
+    accessControlState : AccessControlState__201339279;
+    chatState : {var nextConversationId : Nat; var nextMessageId : Nat};
+    conversations :
+      Map__230067015<Principal,
+                      Map__230067015<Nat, StoredConversation__190462155>>;
+    profiles : Map__230067015<Principal, UserProfile__429904917>
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__512397517 = {};
+type StoredConversation__190462155 =
+  {
+    createdAt : Nat;
+    id : Nat;
+    messages : [ChatMessage__907981869];
+    title : Text;
+    updatedAt : Nat
+  };
+type StoredConversation__451689015 =
+  {
+    createdAt : Timestamp__753029554;
+    id : ConversationId__147913217;
+    messages : [ChatMessage__559859432];
+    title : Text;
+    updatedAt : Timestamp__753029554
+  };
+type Timestamp__301639476 = Nat;
+type Timestamp__753029554 = Timestamp__301639476;
+type UserProfile__429904917 =
+  {displayName : Text; email : ?Text; photoUrl : ?Text};
+type UserProfile__446616884 =
+  {displayName : Text; email : ?Text; photoUrl : ?Text};
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "00000000_000000" : OldActor__512397517 -> NewActor__769816496
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable chatState : {var nextConversationId : Nat; var nextMessageId : Nat};
+  stable conversations :
+    {
+      var root : Node__204828119<Principal, ConversationStore__364143833>;
+      var size : Nat__227979830
+    };
+  stable profiles :
+    {
+      var root : Node__204828119<Principal, UserProfile__446616884>;
+      var size : Nat__227979830
+    }
+};

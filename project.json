@@ -1,0 +1,19 @@
+{
+  "overview": "An AI chatbot website with Google and email login, streaming Gemini-powered chat, conversation history, and a contact-owner link.",
+  "features": [
+    "Chat with an AI assistant that streams replies",
+    "Sign in with Google, email and password, or continue as a guest",
+    "Save and revisit your conversation history",
+    "Check your API key from the main menu",
+    "Contact the owner directly on WhatsApp",
+    "Switch between dark and light themes"
+  ],
+  "category": "ai-chatbot",
+  "tags": [
+    "ai",
+    "chatbot",
+    "productivity",
+    "chat"
+  ],
+  "last_updated": "2026-10-01T01:56:03.097Z"
+}

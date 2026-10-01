@@ -1,0 +1,203 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "DM Sans", sans-serif;
+    --font-body: "DM Sans", sans-serif;
+    --font-mono: "Geist Mono", monospace;
+    --radius: 0.625rem;
+
+    --background: 0.985 0.006 240;
+    --foreground: 0.21 0.02 250;
+    --card: 1 0 0;
+    --card-foreground: 0.21 0.02 250;
+    --popover: 1 0 0;
+    --popover-foreground: 0.21 0.02 250;
+
+    --primary: 0.685 0.148 239;
+    --primary-foreground: 0.99 0.005 239;
+
+    --secondary: 0.955 0.012 240;
+    --secondary-foreground: 0.28 0.02 250;
+    --muted: 0.955 0.012 240;
+    --muted-foreground: 0.55 0.02 250;
+
+    --accent: 0.62 0.13 246;
+    --accent-foreground: 0.99 0.005 246;
+
+    --destructive: 0.58 0.22 25;
+    --destructive-foreground: 0.99 0.005 25;
+    --success: 0.68 0.16 155;
+    --success-foreground: 0.99 0.005 155;
+    --warning: 0.78 0.15 80;
+    --warning-foreground: 0.22 0.02 80;
+
+    --border: 0.905 0.012 240;
+    --input: 0.905 0.012 240;
+    --ring: 0.685 0.148 239;
+
+    --skybrand-50: 0.977 0.013 236;
+    --skybrand-100: 0.951 0.026 236;
+    --skybrand-200: 0.901 0.058 236;
+    --skybrand-300: 0.828 0.101 236;
+    --skybrand-400: 0.746 0.132 236;
+    --skybrand-500: 0.685 0.148 239;
+    --skybrand-600: 0.588 0.142 241;
+    --skybrand-700: 0.5 0.12 242;
+    --skybrand-800: 0.424 0.098 242;
+    --skybrand-900: 0.369 0.08 242;
+
+    --chart-1: 0.685 0.148 239;
+    --chart-2: 0.6 0.12 185;
+    --chart-3: 0.4 0.07 227;
+    --chart-4: 0.83 0.19 84;
+    --chart-5: 0.77 0.19 70;
+
+    --sidebar: 0.985 0.006 240;
+    --sidebar-foreground: 0.21 0.02 250;
+    --sidebar-primary: 0.685 0.148 239;
+    --sidebar-primary-foreground: 0.99 0.005 239;
+    --sidebar-accent: 0.955 0.012 240;
+    --sidebar-accent-foreground: 0.28 0.02 250;
+    --sidebar-border: 0.905 0.012 240;
+    --sidebar-ring: 0.685 0.148 239;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.588 0.142 241),
+      oklch(0.746 0.132 236)
+    );
+    --gradient-subtle: linear-gradient(
+      135deg,
+      oklch(0.685 0.148 239 / 0.14),
+      oklch(0.62 0.13 246 / 0.08)
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 0.129 0.042 265;
+    --foreground: 0.984 0.003 248;
+    --card: 0.208 0.042 265;
+    --card-foreground: 0.984 0.003 248;
+    --popover: 0.279 0.041 260;
+    --popover-foreground: 0.984 0.003 248;
+
+    --primary: 0.685 0.148 239;
+    --primary-foreground: 0.129 0.042 265;
+
+    --secondary: 0.279 0.041 260;
+    --secondary-foreground: 0.929 0.013 256;
+    --muted: 0.279 0.041 260;
+    --muted-foreground: 0.704 0.04 257;
+
+    --accent: 0.746 0.132 236;
+    --accent-foreground: 0.129 0.042 265;
+
+    --destructive: 0.637 0.237 25;
+    --destructive-foreground: 0.984 0.003 248;
+    --success: 0.696 0.17 162;
+    --success-foreground: 0.129 0.042 265;
+    --warning: 0.828 0.189 84;
+    --warning-foreground: 0.129 0.042 265;
+
+    --border: 0.372 0.044 258;
+    --input: 0.372 0.044 258;
+    --ring: 0.685 0.148 239;
+
+    --skybrand-50: 0.977 0.013 236;
+    --skybrand-100: 0.951 0.026 236;
+    --skybrand-200: 0.901 0.058 236;
+    --skybrand-300: 0.828 0.101 236;
+    --skybrand-400: 0.746 0.132 236;
+    --skybrand-500: 0.685 0.148 239;
+    --skybrand-600: 0.588 0.142 241;
+    --skybrand-700: 0.5 0.12 242;
+    --skybrand-800: 0.424 0.098 242;
+    --skybrand-900: 0.369 0.08 242;
+
+    --chart-1: 0.685 0.148 239;
+    --chart-2: 0.696 0.17 162;
+    --chart-3: 0.828 0.189 84;
+    --chart-4: 0.746 0.132 236;
+    --chart-5: 0.637 0.237 25;
+
+    --sidebar: 0.208 0.042 265;
+    --sidebar-foreground: 0.984 0.003 248;
+    --sidebar-primary: 0.685 0.148 239;
+    --sidebar-primary-foreground: 0.129 0.042 265;
+    --sidebar-accent: 0.279 0.041 260;
+    --sidebar-accent-foreground: 0.929 0.013 256;
+    --sidebar-border: 0.372 0.044 258;
+    --sidebar-ring: 0.685 0.148 239;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.588 0.142 241),
+      oklch(0.746 0.132 236)
+    );
+    --gradient-subtle: linear-gradient(
+      135deg,
+      oklch(0.685 0.148 239 / 0.2),
+      oklch(0.62 0.13 246 / 0.1)
+    );
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .glass-panel {
+    @apply border border-border bg-card backdrop-blur-xl;
+  }
+
+  .dark .glass-panel {
+    @apply border-border bg-card;
+  }
+
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+
+  .bg-gradient-subtle {
+    background-image: var(--gradient-subtle);
+  }
+
+  .text-gradient-primary {
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .shadow-glow {
+    box-shadow: 0 10px 30px -12px oklch(0.685 0.148 239 / 0.45);
+  }
+}
